@@ -1,0 +1,74 @@
+-- database/init.sql
+-- Создание таблиц для проекта "Продажа принадлежностей для кофе"
+
+DROP TABLE IF EXISTS "OrderItem" CASCADE;
+DROP TABLE IF EXISTS "Order" CASCADE;
+DROP TABLE IF EXISTS "Product" CASCADE;
+DROP TABLE IF EXISTS "Category" CASCADE;
+DROP TABLE IF EXISTS "User" CASCADE;
+
+-- ENUMS
+DO $$ BEGIN
+    CREATE TYPE "Role" AS ENUM ('ADMIN', 'CUSTOMER');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+    CREATE TYPE "OrderStatus" AS ENUM ('PENDING', 'PAID', 'SHIPPED', 'COMPLETED', 'CANCELED');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+-- USERS
+CREATE TABLE "User" (
+    id SERIAL PRIMARY KEY,
+    email TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    name TEXT NOT NULL,
+    role "Role" NOT NULL DEFAULT 'CUSTOMER',
+    "createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
+    "updatedAt" TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+-- CATEGORIES
+CREATE TABLE "Category" (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE,
+    slug TEXT NOT NULL UNIQUE,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
+    "updatedAt" TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+-- PRODUCTS
+CREATE TABLE "Product" (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    slug TEXT NOT NULL UNIQUE,
+    description TEXT NOT NULL,
+    price NUMERIC(10,2) NOT NULL,
+    stock INT NOT NULL DEFAULT 0,
+    "imageUrl" TEXT,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
+    "updatedAt" TIMESTAMP NOT NULL DEFAULT NOW(),
+    "categoryId" INT NOT NULL REFERENCES "Category"(id) ON DELETE CASCADE
+);
+
+-- ORDERS
+CREATE TABLE "Order" (
+    id SERIAL PRIMARY KEY,
+    "userId" INT NOT NULL REFERENCES "User"(id) ON DELETE CASCADE,
+    status "OrderStatus" NOT NULL DEFAULT 'PENDING',
+    total NUMERIC(10,2) NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
+    "updatedAt" TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+-- ORDER ITEMS
+CREATE TABLE "OrderItem" (
+    id SERIAL PRIMARY KEY,
+    "orderId" INT NOT NULL REFERENCES "Order"(id) ON DELETE CASCADE,
+    "productId" INT NOT NULL REFERENCES "Product"(id) ON DELETE CASCADE,
+    quantity INT NOT NULL DEFAULT 1,
+    price NUMERIC(10,2) NOT NULL
+);
