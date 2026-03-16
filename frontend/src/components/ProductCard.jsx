@@ -2,19 +2,24 @@ import { Link } from 'react-router-dom';
 
 export default function ProductCard({ product }) {
   return (
-    <div className="card">
+    <div className="bg-white rounded-2xl shadow-md border border-slate-200 p-5 flex flex-col">
       <img
-        src={product.imageUrl}
-        alt={product.name}
-        className="h-48 w-full object-cover rounded-md"
+        src={product.image}
+        alt={product.title}
+        className="h-56 w-full object-cover rounded-xl mb-4"
       />
 
-      <h3 className="text-lg font-semibold mt-3">{product.name}</h3>
-      <p className="text-amber-800 font-bold text-xl mt-1">{product.price} ₽</p>
+      <h3 className="text-xl font-semibold text-slate-900">
+        {product.title}
+      </h3>
+
+      <p className="text-emerald-700 font-bold text-2xl mt-2">
+        {product.price} ₽
+      </p>
 
       <Link
         to={`/products/${product.id}`}
-        className="btn btn-primary mt-3 inline-block"
+        className="mt-4 inline-block px-5 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-center font-medium transition"
       >
         Подробнее
       </Link>

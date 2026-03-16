@@ -8,24 +8,27 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('Seeding database...');
 
+  // ADMIN
   const passwordHash = await bcrypt.hash('admin123', 10);
 
-  const admin = await prisma.user.upsert({
-    where: { email: 'admin@coffee-shop.local' },
+  await prisma.user.upsert({
+    where: { email: 'admin@furniture-store.local' },
     update: {},
     create: {
-      email: 'admin@coffee-shop.local',
+      email: 'admin@furniture-store.local',
       password: passwordHash,
       name: 'Admin',
       role: 'ADMIN'
     }
   });
 
+  // CATEGORIES
   const categoriesData = [
-    { name: 'Кофемолки', slug: 'grinders' },
-    { name: 'Турки и гейзеры', slug: 'brewers' },
-    { name: 'Фильтры и аксессуары', slug: 'filters-accessories' },
-    { name: 'Чашки и кружки', slug: 'cups-mugs' }
+    { name: 'Диваны', slug: 'sofas' },
+    { name: 'Кресла', slug: 'armchairs' },
+    { name: 'Столы и столешницы', slug: 'tables' },
+    { name: 'Шкафы и хранение', slug: 'storage' },
+    { name: 'Освещение', slug: 'lighting' }
   ];
 
   const categories = [];
@@ -38,63 +41,55 @@ async function main() {
     categories.push(created);
   }
 
-  const [grinders, brewers, filters, cups] = categories;
+  const [sofas, armchairs, tables, storage, lighting] = categories;
 
+  // PRODUCTS
   await prisma.product.createMany({
     data: [
       {
-        name: 'Ручная кофемолка Hario Mini Mill',
-        slug: 'hario-mini-mill',
-        description: 'Компактная ручная кофемолка для свежемолотого кофе дома и в путешествиях.',
-        price: 59.90,
-        stock: 20,
-        imageUrl: '/images/hario-mini-mill.jpg',
-        categoryId: grinders.id
+        name: 'Диван угловой Milano',
+        slug: 'sofa-milano',
+        description: 'Комфортный угловой диван с мягкими подушками и прочным каркасом.',
+        price: 899.00,
+        stock: 8,
+        imageUrl: '/images/sofa-milano.jpg',
+        categoryId: sofas.id
       },
       {
-        name: 'Электрическая кофемолка Baratza Encore',
-        slug: 'baratza-encore',
-        description: 'Надёжная электрическая кофемолка для фильтра и альтернативных методов заваривания.',
-        price: 189.00,
-        stock: 10,
-        imageUrl: '/images/baratza-encore.jpg',
-        categoryId: grinders.id
+        name: 'Кресло Relax Comfort',
+        slug: 'armchair-relax',
+        description: 'Удобное кресло с высокой спинкой и эргономичной формой для отдыха.',
+        price: 349.00,
+        stock: 15,
+        imageUrl: '/images/armchair-relax.jpg',
+        categoryId: armchairs.id
       },
       {
-        name: 'Турка медная классическая 300 мл',
-        slug: 'copper-cezve-300',
-        description: 'Традиционная медная турка для приготовления ароматного кофе по-восточному.',
-        price: 29.50,
-        stock: 30,
-        imageUrl: '/images/copper-cezve-300.jpg',
-        categoryId: brewers.id
+        name: 'Обеденный стол Loft 160 см',
+        slug: 'table-loft-160',
+        description: 'Стильный стол в стиле лофт с деревянной столешницей и металлическими ножками.',
+        price: 499.00,
+        stock: 12,
+        imageUrl: '/images/table-loft-160.jpg',
+        categoryId: tables.id
       },
       {
-        name: 'Френч-пресс 600 мл',
-        slug: 'french-press-600',
-        description: 'Стеклянный френч-пресс для заваривания кофе и чая.',
-        price: 24.90,
-        stock: 25,
-        imageUrl: '/images/french-press-600.jpg',
-        categoryId: brewers.id
+        name: 'Шкаф-купе Modern 2.0',
+        slug: 'wardrobe-modern-20',
+        description: 'Современный шкаф-купе с зеркальными дверцами и вместительными полками.',
+        price: 729.00,
+        stock: 5,
+        imageUrl: '/images/wardrobe-modern-20.jpg',
+        categoryId: storage.id
       },
       {
-        name: 'Бумажные фильтры №4 (100 шт.)',
-        slug: 'paper-filters-4',
-        description: 'Классические бумажные фильтры для капельных кофеварок и воронок.',
-        price: 6.90,
-        stock: 100,
-        imageUrl: '/images/paper-filters-4.jpg',
-        categoryId: filters.id
-      },
-      {
-        name: 'Керамическая кружка 300 мл',
-        slug: 'ceramic-mug-300',
-        description: 'Удобная керамическая кружка для ежедневного использования.',
-        price: 9.90,
-        stock: 50,
-        imageUrl: '/images/ceramic-mug-300.jpg',
-        categoryId: cups.id
+        name: 'Настольная лампа Nordic Light',
+        slug: 'lamp-nordic-light',
+        description: 'Минималистичная лампа в скандинавском стиле для рабочего стола или спальни.',
+        price: 79.90,
+        stock: 40,
+        imageUrl: '/images/lamp-nordic-light.jpg',
+        categoryId: lighting.id
       }
     ]
   });

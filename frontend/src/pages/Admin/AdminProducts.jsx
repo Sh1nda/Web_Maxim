@@ -4,70 +4,89 @@ import api from '../../api/axios';
 import { Link } from 'react-router-dom';
 
 export default function AdminProducts() {
-  const [items, setItems] = useState([]);
+  const [furniture, setFurniture] = useState([]);
 
-  async function load() {
+  async function loadFurniture() {
     const res = await getProducts();
-    setItems(res.data.data.items);
+
+    // API отдаёт name, price (Decimal), stock
+    const items = res.data.data.items.map(p => ({
+      id: p.id,
+      name: p.name,
+      price: Number(p.price),
+      stock: p.stock
+    }));
+
+    setFurniture(items);
   }
 
-  async function deleteProduct(id) {
-    if (!confirm("Удалить товар?")) return;
+  async function removeProduct(id) {
+    if (!confirm("Удалить этот товар мебели?")) return;
     await api.delete(`/products/${id}`);
-    load();
+    loadFurniture();
   }
 
   useEffect(() => {
-    load();
+    loadFurniture();
   }, []);
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-amber-800">Товары</h1>
-        <Link to="/admin/products/new" className="btn btn-primary">
-          + Добавить товар
+    <section className="max-w-6xl mx-auto py-14 px-4">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-10">
+        <h1 className="text-4xl font-semibold text-slate-900 tracking-tight">
+          Мебель
+        </h1>
+
+        <Link
+          to="/admin/products/new"
+          className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-medium transition"
+        >
+          + Добавить мебель
         </Link>
       </div>
 
-      <table className="w-full bg-white shadow-md rounded-lg">
-        <thead>
-          <tr className="bg-gray-200 text-left">
-            <th className="p-3">ID</th>
-            <th className="p-3">Название</th>
-            <th className="p-3">Цена</th>
-            <th className="p-3">Остаток</th>
-            <th className="p-3">Действия</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {items.map((p) => (
-            <tr key={p.id} className="border-t">
-              <td className="p-3">{p.id}</td>
-              <td className="p-3">{p.name}</td>
-              <td className="p-3">{p.price} ₽</td>
-              <td className="p-3">{p.stock}</td>
-              <td className="p-3 flex gap-3">
-                <Link
-                  to={`/admin/products/${p.id}`}
-                  className="btn btn-secondary"
-                >
-                  Редактировать
-                </Link>
-
-                <button
-                  className="btn btn-danger"
-                  onClick={() => deleteProduct(p.id)}
-                >
-                  Удалить
-                </button>
-              </td>
+      {/* Table */}
+      <div className="overflow-x-auto bg-white rounded-2xl shadow-md border border-slate-200">
+        <table className="w-full text-left">
+          <thead>
+            <tr className="bg-slate-100 text-slate-700">
+              <th className="p-4 font-medium">ID</th>
+              <th className="p-4 font-medium">Название</th>
+              <th className="p-4 font-medium">Цена</th>
+              <th className="p-4 font-medium">Остаток</th>
+              <th className="p-4 font-medium">Действия</th>
             </tr>
-          ))}
-        </tbody>
+          </thead>
 
-      </table>
-    </div>
+          <tbody>
+            {furniture.map((item) => (
+              <tr key={item.id} className="border-t border-slate-200">
+                <td className="p-4">{item.id}</td>
+                <td className="p-4">{item.name}</td>
+                <td className="p-4">{item.price} ₽</td>
+                <td className="p-4">{item.stock}</td>
+                <td className="p-4 flex gap-3">
+                  <Link
+                    to={`/admin/products/${item.id}`}
+                    className="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-lg transition"
+                  >
+                    Редактировать
+                  </Link>
+
+                  <button
+                    onClick={() => removeProduct(item.id)}
+                    className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition"
+                  >
+                    Удалить
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+
+        </table>
+      </div>
+    </section>
   );
 }

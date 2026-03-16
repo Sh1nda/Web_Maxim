@@ -5,43 +5,66 @@ import { CartContext } from '../context/CartContext';
 
 export default function ProductDetails() {
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
+  const [itemData, setItemData] = useState(null);
   const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
-    getProduct(id).then((res) => setProduct(res.data.data));
+    getProduct(id).then((res) => {
+      const p = res.data.data;
+
+      setItemData({
+        id: p.id,
+        title: p.name,
+        description: p.description,
+        price: Number(p.price),
+        image: p.imageUrl,
+        categoryId: p.categoryId
+      });
+    });
   }, [id]);
 
-  if (!product) return <p className="p-6">Загрузка...</p>;
+  if (!itemData) {
+    return (
+      <div className="p-10 text-slate-600 text-lg">
+        Загрузка информации о мебели...
+      </div>
+    );
+  }
 
   return (
-    <div className="container py-10 max-w-4xl">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <section className="max-w-5xl mx-auto py-14 px-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
 
         <img
-          src={product.imageUrl}
-          alt={product.name}
-          className="rounded-lg shadow-md w-full h-80 object-cover"
+          src={itemData.image}
+          alt={itemData.title}
+          className="rounded-2xl shadow-lg w-full h-96 object-cover border border-slate-200"
         />
 
-        <div>
-          <h1 className="text-3xl font-bold text-amber-800">{product.name}</h1>
+        <div className="flex flex-col justify-between">
+          <div>
+            <h1 className="text-4xl font-semibold text-slate-900 tracking-tight">
+              {itemData.title}
+            </h1>
 
-          <p className="text-gray-700 mt-4">{product.description}</p>
+            <p className="text-slate-600 mt-5 leading-relaxed text-lg">
+              {itemData.description}
+            </p>
 
-          <p className="text-3xl font-bold text-amber-700 mt-6">
-            {product.price} ₽
-          </p>
+            <p className="text-3xl font-bold text-emerald-700 mt-8">
+              {itemData.price} ₽
+            </p>
+          </div>
 
           <button
-            onClick={() => addToCart(product)}
-            className="btn btn-primary mt-6"
+            onClick={() => addToCart(itemData)}
+            className="mt-10 py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-lg font-medium transition"
           >
             Добавить в корзину
           </button>
         </div>
 
       </div>
-    </div>
+    </section>
   );
 }

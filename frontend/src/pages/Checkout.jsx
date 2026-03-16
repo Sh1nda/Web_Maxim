@@ -8,50 +8,70 @@ export default function Checkout() {
   const navigate = useNavigate();
 
   async function handleOrder() {
-    const payload = items.map((i) => ({
-      productId: i.product.id,
-      quantity: i.quantity
+    const orderData = items.map((item) => ({
+      productId: item.product.id,
+      quantity: item.quantity
     }));
 
-    await createOrder(payload);
+    await createOrder(orderData);
     clearCart();
     navigate('/orders');
   }
 
   const total = items.reduce(
-    (sum, i) => sum + i.product.price * i.quantity,
+    (sum, item) => sum + item.product.price * item.quantity,
     0
   );
 
   return (
-    <div className="container py-10 max-w-xl">
-      <h1 className="text-3xl font-bold text-amber-800 mb-6">
-        Оформление заказа
+    <section className="max-w-3xl mx-auto py-12 px-4">
+      <h1 className="text-4xl font-semibold text-slate-800 mb-10">
+        Подтверждение покупки
       </h1>
 
       {items.length === 0 ? (
-        <p className="text-gray-600">Корзина пуста</p>
+        <div className="bg-slate-100 p-6 rounded-xl text-slate-600 shadow-sm">
+          Ваша корзина пуста. Добавьте мебель, чтобы перейти к оформлению.
+        </div>
       ) : (
-        <>
-          <div className="flex flex-col gap-4">
-            {items.map((i) => (
-              <div key={i.product.id} className="card flex justify-between">
-                <span>{i.product.name} × {i.quantity}</span>
-                <span className="font-bold">{i.product.price * i.quantity} ₽</span>
+        <div className="flex flex-col gap-6">
+          {items.map((item) => (
+            <div
+              key={item.product.id}
+              className="flex justify-between items-center bg-white p-5 rounded-xl shadow-md border border-slate-200"
+            >
+              <div className="flex flex-col">
+                <span className="text-lg font-medium text-slate-800">
+                  {item.product.title}
+                </span>
+                <span className="text-sm text-slate-500">
+                  Количество: {item.quantity}
+                </span>
               </div>
-            ))}
-          </div>
 
-          <p className="text-2xl font-bold mt-6">Итого: {total} ₽</p>
+              <span className="text-xl font-semibold text-emerald-700">
+                {item.product.price * item.quantity} ₽
+              </span>
+            </div>
+          ))}
+
+          <div className="mt-8 bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-sm flex justify-between items-center">
+            <span className="text-2xl font-semibold text-slate-800">
+              Общая сумма:
+            </span>
+            <span className="text-3xl font-bold text-emerald-600">
+              {total} ₽
+            </span>
+          </div>
 
           <button
             onClick={handleOrder}
-            className="btn btn-primary w-full mt-6"
+            className="mt-8 w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-xl text-lg font-medium transition"
           >
-            Подтвердить заказ
+            Завершить оформление
           </button>
-        </>
+        </div>
       )}
-    </div>
+    </section>
   );
 }

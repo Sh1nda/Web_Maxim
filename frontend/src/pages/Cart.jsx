@@ -6,45 +6,62 @@ export default function Cart() {
   const { items, removeFromCart } = useContext(CartContext);
 
   const total = items.reduce(
-    (sum, i) => sum + i.product.price * i.quantity,
+    (sum, item) => sum + item.product.price * item.quantity,
     0
   );
 
   return (
-    <div className="container py-10">
-      <h1 className="text-3xl font-bold text-amber-800 mb-6">Корзина</h1>
+    <section className="max-w-4xl mx-auto py-12 px-4">
+      <h1 className="text-4xl font-semibold text-slate-800 mb-10 tracking-wide">
+        Корзина мебели
+      </h1>
 
       {items.length === 0 ? (
-        <p className="text-gray-600">Корзина пуста</p>
+        <div className="bg-slate-100 p-6 rounded-lg shadow-sm text-slate-600">
+          Ваша корзина пуста. Добавьте мебель, чтобы продолжить покупку.
+        </div>
       ) : (
-        <>
-          <div className="flex flex-col gap-4">
-            {items.map((i) => (
-              <div
-                key={i.product.id}
-                className="card flex justify-between items-center"
-              >
-                <span>
-                  {i.product.name} × {i.quantity}
+        <div className="flex flex-col gap-6">
+          {items.map((item) => (
+            <div
+              key={item.product.id}
+              className="flex items-center justify-between bg-white p-5 rounded-xl shadow-md border border-slate-200"
+            >
+              <div className="flex flex-col">
+                <span className="text-lg font-medium text-slate-800">
+                  {item.product.title}
                 </span>
-
-                <button
-                  onClick={() => removeFromCart(i.product.id)}
-                  className="btn btn-danger"
-                >
-                  Удалить
-                </button>
+                <span className="text-sm text-slate-500">
+                  Количество: {item.quantity}
+                </span>
               </div>
-            ))}
+
+              <button
+                onClick={() => removeFromCart(item.product.id)}
+                className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition"
+              >
+                Удалить
+              </button>
+            </div>
+          ))}
+
+          <div className="mt-8 flex items-center justify-between bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-sm">
+            <span className="text-2xl font-semibold text-slate-800">
+              Общая стоимость:
+            </span>
+            <span className="text-3xl font-bold text-emerald-600">
+              {total} ₽
+            </span>
           </div>
 
-          <p className="text-2xl font-bold mt-6">Итого: {total} ₽</p>
-
-          <Link to="/checkout" className="btn btn-primary mt-4 inline-block">
-            Оформить заказ
+          <Link
+            to="/checkout"
+            className="mt-6 inline-block text-center bg-emerald-600 hover:bg-emerald-700 text-white py-3 px-8 rounded-xl text-lg font-medium transition"
+          >
+            Перейти к оформлению
           </Link>
-        </>
+        </div>
       )}
-    </div>
+    </section>
   );
 }

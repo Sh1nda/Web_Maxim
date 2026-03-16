@@ -5,12 +5,22 @@ import ProductList from '../components/ProductList';
 import CategoryList from '../components/CategoryList';
 
 export default function Products() {
-  const [items, setItems] = useState([]);
+  const [furniture, setFurniture] = useState([]);
   const [categories, setCategories] = useState([]);
 
-  async function load() {
+  async function loadFurniture() {
     const res = await getProducts();
-    setItems(res.data.data.items);
+
+    const items = res.data.data.items.map(p => ({
+      id: p.id,
+      title: p.name,          // фронтенд ждёт title
+      price: Number(p.price), // Decimal → number
+      stock: p.stock,
+      image: p.imageUrl,      // фронтенд ждёт image
+      categoryId: p.categoryId
+    }));
+
+    setFurniture(items);
   }
 
   async function loadCategories() {
@@ -18,23 +28,37 @@ export default function Products() {
     setCategories(res.data.data);
   }
 
-  async function filterByCategory(id) {
-    const res = await getProducts({ categoryId: id });
-    setItems(res.data.data.items);
+  async function filterByCategory(categoryId) {
+    const res = await getProducts({ categoryId });
+
+    const items = res.data.data.items.map(p => ({
+      id: p.id,
+      title: p.name,
+      price: Number(p.price),
+      stock: p.stock,
+      image: p.imageUrl,
+      categoryId: p.categoryId
+    }));
+
+    setFurniture(items);
   }
 
   useEffect(() => {
-    load();
+    loadFurniture();
     loadCategories();
   }, []);
 
   return (
-    <div className="container py-10">
-      <h1 className="text-3xl font-bold text-amber-800 mb-6">Каталог товаров</h1>
+    <section className="max-w-6xl mx-auto py-14 px-4">
+      <h1 className="text-4xl font-semibold text-slate-900 mb-10 tracking-tight">
+        Каталог мебели
+      </h1>
 
-      <CategoryList categories={categories} onSelect={filterByCategory} />
+      <div className="mb-10">
+        <CategoryList categories={categories} onSelect={filterByCategory} />
+      </div>
 
-      <ProductList items={items} />
-    </div>
+      <ProductList items={furniture} />
+    </section>
   );
 }

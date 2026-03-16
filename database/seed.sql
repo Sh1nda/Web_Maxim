@@ -1,10 +1,10 @@
 -- database/seed.sql
--- Начальные данные
+-- Начальные данные для мебельного магазина
 
 -- ADMIN USER
 INSERT INTO "User" (email, password, name, role)
 VALUES (
-    'admin@coffee-shop.local',
+    'admin@furniture-store.local',
     '$2a$10$uQ1mQ8p0xkYpZx7BqXc9Uu0kzQ0wQ9Yg8xJqv8zjYy2mV8u0yXx3e', -- bcrypt hash "admin123"
     'Admin',
     'ADMIN'
@@ -13,34 +13,61 @@ VALUES (
 -- CATEGORIES
 INSERT INTO "Category" (name, slug)
 VALUES
-    ('Кофемолки', 'grinders'),
-    ('Турки и гейзеры', 'brewers'),
-    ('Фильтры и аксессуары', 'filters-accessories'),
-    ('Чашки и кружки', 'cups-mugs');
+    ('Диваны', 'sofas'),
+    ('Кресла', 'armchairs'),
+    ('Столы и столешницы', 'tables'),
+    ('Шкафы и хранение', 'storage'),
+    ('Освещение', 'lighting');
 
 -- PRODUCTS
 INSERT INTO "Product" (name, slug, description, price, stock, "imageUrl", "categoryId")
 VALUES
-    ('Ручная кофемолка Hario Mini Mill', 'hario-mini-mill',
-     'Компактная ручная кофемолка для свежемолотого кофе дома и в путешествиях.',
-     59.90, 20, '/images/hario-mini-mill.jpg', 1),
+    (
+        'Диван угловой Milano',
+        'sofa-milano',
+        'Комфортный угловой диван с мягкими подушками и прочным каркасом.',
+        899.00,
+        8,
+        '/images/sofa-milano.jpg',
+        1
+    ),
 
-    ('Электрическая кофемолка Baratza Encore', 'baratza-encore',
-     'Надёжная электрическая кофемолка для фильтра и альтернативных методов заваривания.',
-     189.00, 10, '/images/baratza-encore.jpg', 1),
+    (
+        'Кресло Relax Comfort',
+        'armchair-relax',
+        'Удобное кресло с высокой спинкой и эргономичной формой для отдыха.',
+        349.00,
+        15,
+        '/images/armchair-relax.jpg',
+        2
+    ),
 
-    ('Турка медная классическая 300 мл', 'copper-cezve-300',
-     'Традиционная медная турка для приготовления ароматного кофе по-восточному.',
-     29.50, 30, '/images/copper-cezve-300.jpg', 2),
+    (
+        'Обеденный стол Loft 160 см',
+        'table-loft-160',
+        'Стильный стол в стиле лофт с деревянной столешницей и металлическими ножками.',
+        499.00,
+        12,
+        '/images/table-loft-160.jpg',
+        3
+    ),
 
-    ('Френч-пресс 600 мл', 'french-press-600',
-     'Стеклянный френч-пресс для заваривания кофе и чая.',
-     24.90, 25, '/images/french-press-600.jpg', 2),
+    (
+        'Шкаф-купе Modern 2.0',
+        'wardrobe-modern-20',
+        'Современный шкаф-купе с зеркальными дверцами и вместительными полками.',
+        729.00,
+        5,
+        '/images/wardrobe-modern-20.jpg',
+        4
+    ),
 
-    ('Бумажные фильтры №4 (100 шт.)', 'paper-filters-4',
-     'Классические бумажные фильтры для капельных кофеварок и воронок.',
-     6.90, 100, '/images/paper-filters-4.jpg', 3),
-
-    ('Керамическая кружка 300 мл', 'ceramic-mug-300',
-     'Удобная керамическая кружка для ежедневного использования.',
-     9.90, 50, '/images/ceramic-mug-300.jpg', 4);
+    (
+        'Настольная лампа Nordic Light',
+        'lamp-nordic-light',
+        'Минималистичная лампа в скандинавском стиле для рабочего стола или спальни.',
+        79.90,
+        40,
+        '/images/lamp-nordic-light.jpg',
+        5
+    );
