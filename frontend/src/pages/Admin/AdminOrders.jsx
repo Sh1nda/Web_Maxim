@@ -5,13 +5,21 @@ export default function AdminOrders() {
   const [orders, setOrders] = useState([]);
 
   async function loadOrders() {
-    const res = await api.get('/orders');
-    setOrders(res.data.data);
+    try {
+      const res = await api.get('/orders');
+      setOrders(res.data.data);
+    } catch (err) {
+      console.error('Ошибка загрузки заказов:', err);
+    }
   }
 
   async function changeStatus(id, status) {
-    await api.patch(`/orders/${id}/status`, { status });
-    loadOrders();
+    try {
+      await api.patch(`/orders/${id}/status`, { status });
+      await loadOrders();
+    } catch (err) {
+      console.error('Ошибка изменения статуса:', err);
+    }
   }
 
   useEffect(() => {
@@ -43,12 +51,12 @@ export default function AdminOrders() {
 
             {/* Информация о заказе */}
             <p className="text-slate-700 text-lg">
-              Покупатель:{" "}
-              <span className="font-medium">{order.user.email}</span>
+              Покупатель:{' '}
+              <span className="font-medium">{order.user?.email}</span>
             </p>
 
             <p className="text-slate-700 text-lg mt-1">
-              Сумма заказа:{" "}
+              Сумма заказа:{' '}
               <span className="font-semibold text-emerald-700">
                 {order.total} ₽
               </span>
@@ -62,7 +70,7 @@ export default function AdminOrders() {
                   className="flex justify-between bg-slate-50 p-4 rounded-xl border border-slate-200"
                 >
                   <span className="font-medium text-slate-800">
-                    {item.product.title}
+                    {item.product?.name}
                   </span>
                   <span className="text-slate-600">× {item.quantity}</span>
                 </li>
@@ -71,7 +79,7 @@ export default function AdminOrders() {
 
             {/* Кнопки изменения статуса */}
             <div className="flex flex-wrap gap-3 mt-6">
-              {["PENDING", "PAID", "SHIPPED", "COMPLETED", "CANCELED"].map(
+              {['PENDING', 'PAID', 'SHIPPED', 'COMPLETED', 'CANCELED'].map(
                 (status) => (
                   <button
                     key={status}
