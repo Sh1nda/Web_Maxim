@@ -12,7 +12,7 @@ export default function Navbar() {
         {/* Левая часть */}
         <div className="flex gap-8 items-center text-slate-700 text-lg">
           <Link to="/products" className="hover:text-emerald-700 transition">
-            Каталог
+            Каталог товаров
           </Link>
 
           <Link to="/cart" className="hover:text-emerald-700 transition">
@@ -21,7 +21,7 @@ export default function Navbar() {
 
           {user && (
             <Link to="/orders" className="hover:text-emerald-700 transition">
-              Мои заказы
+              Заказы
             </Link>
           )}
         </div>

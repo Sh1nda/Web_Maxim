@@ -13,10 +13,11 @@ export default function Products() {
 
     const items = res.data.data.items.map(p => ({
       id: p.id,
-      title: p.name,          // фронтенд ждёт title
-      price: Number(p.price), // Decimal → number
+      title: p.name,
+      description: p.description,
+      price: Number(p.price),
       stock: p.stock,
-      image: p.imageUrl,      // фронтенд ждёт image
+      image: p.imageUrl,
       categoryId: p.categoryId
     }));
 
@@ -34,6 +35,7 @@ export default function Products() {
     const items = res.data.data.items.map(p => ({
       id: p.id,
       title: p.name,
+      description: p.description,
       price: Number(p.price),
       stock: p.stock,
       image: p.imageUrl,
@@ -49,16 +51,30 @@ export default function Products() {
   }, []);
 
   return (
-    <section className="max-w-6xl mx-auto py-14 px-4">
-      <h1 className="text-4xl font-semibold text-slate-900 mb-10 tracking-tight">
+    <section className="max-w-7xl mx-auto py-14 px-4">
+
+      <h1 className="text-4xl font-semibold text-slate-900 mb-12 tracking-tight text-center">
         Каталог мебели
       </h1>
 
-      <div className="mb-10">
-        <CategoryList categories={categories} onSelect={filterByCategory} />
-      </div>
+      {/* Новый layout: категории слева, товары справа */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
 
-      <ProductList items={furniture} />
+        {/* Левая колонка — категории */}
+        <aside className="md:col-span-1 bg-white p-6 rounded-2xl shadow-md border border-slate-200 h-fit sticky top-10">
+          <h2 className="text-xl font-semibold text-slate-800 mb-4">
+            Категории
+          </h2>
+
+          <CategoryList categories={categories} onSelect={filterByCategory} />
+        </aside>
+
+        {/* Правая колонка — товары */}
+        <div className="md:col-span-3">
+          <ProductList items={furniture} />
+        </div>
+
+      </div>
     </section>
   );
 }
