@@ -42,7 +42,7 @@ export default function AdminProductEdit() {
 
   return (
     <section className="max-w-4xl mx-auto py-14 px-4">
-      <h1 className="text-4xl font-bold text-slate-900 mb-10 tracking-tight">
+      <h1 className="text-4xl font-bold text-slate-100 mb-10 tracking-tight">
         {isNew ? 'Добавить устройство' : 'Редактировать устройство'}
       </h1>
 
@@ -53,9 +53,8 @@ export default function AdminProductEdit() {
         <div className="flex flex-col gap-2">
           <label className="font-medium">Название устройства</label>
           <input
-            className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 focus:border-blue-500 outline-none transition"
+            className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700"
             name="name"
-            placeholder="Например: RTX 4070 Ti"
             value={form.name}
             onChange={handleChange}
           />
@@ -64,9 +63,8 @@ export default function AdminProductEdit() {
         <div className="flex flex-col gap-2">
           <label className="font-medium">Slug</label>
           <input
-            className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 focus:border-blue-500 outline-none transition"
+            className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700"
             name="slug"
-            placeholder="rtx-4070-ti"
             value={form.slug}
             onChange={handleChange}
           />
@@ -75,9 +73,8 @@ export default function AdminProductEdit() {
         <div className="flex flex-col gap-2">
           <label className="font-medium">Описание</label>
           <textarea
-            className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 h-32 resize-none focus:border-blue-500 outline-none transition"
+            className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 h-32 resize-none"
             name="description"
-            placeholder="Описание устройства"
             value={form.description}
             onChange={handleChange}
           />
@@ -87,9 +84,8 @@ export default function AdminProductEdit() {
           <div className="flex flex-col gap-2">
             <label className="font-medium">Цена</label>
             <input
-              className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 focus:border-blue-500 outline-none transition"
+              className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700"
               name="price"
-              placeholder="Цена в ₽"
               value={form.price}
               onChange={handleChange}
             />
@@ -98,9 +94,8 @@ export default function AdminProductEdit() {
           <div className="flex flex-col gap-2">
             <label className="font-medium">Остаток</label>
             <input
-              className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 focus:border-blue-500 outline-none transition"
+              className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700"
               name="stock"
-              placeholder="Количество на складе"
               value={form.stock}
               onChange={handleChange}
             />
@@ -110,9 +105,8 @@ export default function AdminProductEdit() {
         <div className="flex flex-col gap-2">
           <label className="font-medium">URL изображения</label>
           <input
-            className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 focus:border-blue-500 outline-none transition"
+            className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700"
             name="imageUrl"
-            placeholder="https://example.com/device.jpg"
             value={form.imageUrl}
             onChange={handleChange}
           />
@@ -121,21 +115,17 @@ export default function AdminProductEdit() {
         <div className="flex flex-col gap-2">
           <label className="font-medium">ID категории</label>
           <input
-            className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 focus:border-blue-500 outline-none transition"
+            className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700"
             name="categoryId"
-            placeholder="Например: 3"
             value={form.categoryId}
             onChange={handleChange}
           />
         </div>
 
-        <button
-          className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-lg font-semibold transition"
-        >
+        <button className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-lg font-semibold transition">
           {isNew ? 'Создать устройство' : 'Сохранить изменения'}
         </button>
-
       </form>
-    </div>
+    </section>
   );
 }

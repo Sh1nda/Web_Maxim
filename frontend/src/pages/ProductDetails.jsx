@@ -12,9 +12,9 @@ export default function ProductDetails() {
     getProduct(id).then((res) => setProduct(res.data.data));
   }, [id]);
 
-  if (!itemData) {
+  if (!product) {
     return (
-      <div className="p-10 text-slate-600 text-lg">
+      <div className="p-10 text-slate-300 text-lg">
         Загрузка информации об устройстве...
       </div>
     );
@@ -25,28 +25,28 @@ export default function ProductDetails() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
 
         <img
-          src={itemData.image}
-          alt={itemData.title}
-          className="rounded-2xl shadow-xl w-full h-96 object-cover border border-slate-300"
+          src={product.imageUrl}
+          alt={product.name}
+          className="rounded-2xl shadow-xl w-full h-96 object-cover border border-slate-700"
         />
 
         <div className="flex flex-col justify-between">
           <div>
-            <h1 className="text-4xl font-bold text-slate-900 tracking-tight">
-              {itemData.title}
+            <h1 className="text-4xl font-bold text-slate-100 tracking-tight">
+              {product.name}
             </h1>
 
-            <p className="text-slate-600 mt-6 leading-relaxed text-lg">
-              {itemData.description}
+            <p className="text-slate-300 mt-6 leading-relaxed text-lg">
+              {product.description}
             </p>
 
-            <p className="text-4xl font-extrabold text-emerald-600 mt-10">
-              {itemData.price} ₽
+            <p className="text-4xl font-extrabold text-emerald-400 mt-10">
+              {product.price} ₽
             </p>
           </div>
 
           <button
-            onClick={() => addToCart(itemData)}
+            onClick={() => addToCart(product)}
             className="mt-12 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-lg font-semibold transition"
           >
             Добавить в корзину
@@ -54,6 +54,6 @@ export default function ProductDetails() {
         </div>
 
       </div>
-    </div>
+    </section>
   );
 }

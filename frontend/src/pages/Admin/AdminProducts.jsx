@@ -32,7 +32,7 @@ export default function AdminProducts() {
   return (
     <section className="max-w-7xl mx-auto py-14 px-4">
       <div className="flex justify-between items-center mb-10">
-        <h1 className="text-4xl font-bold text-slate-900 tracking-tight">
+        <h1 className="text-4xl font-bold text-slate-100 tracking-tight">
           Устройства
         </h1>
 
@@ -44,22 +44,21 @@ export default function AdminProducts() {
         </Link>
       </div>
 
-      <div className="overflow-x-auto bg-white rounded-2xl shadow-xl border border-slate-200">
-        <table className="w-full text-left">
+      <div className="overflow-x-auto bg-slate-900 rounded-2xl shadow-xl border border-slate-700">
+        <table className="w-full text-left text-slate-100">
           <thead>
-            <tr className="bg-slate-100 text-slate-700">
+            <tr className="bg-slate-800">
               <th className="p-4 font-medium">ID</th>
               <th className="p-4 font-medium">Название</th>
               <th className="p-4 font-medium">Цена</th>
               <th className="p-4 font-medium">Остаток</th>
               <th className="p-4 font-medium">Действия</th>
             </tr>
-          ))}
-        </tbody>
+          </thead>
 
           <tbody>
             {devices.map((item) => (
-              <tr key={item.id} className="border-t border-slate-200">
+              <tr key={item.id} className="border-t border-slate-700">
                 <td className="p-4">{item.id}</td>
                 <td className="p-4">{item.name}</td>
                 <td className="p-4">{item.price} ₽</td>
@@ -67,7 +66,7 @@ export default function AdminProducts() {
                 <td className="p-4 flex gap-3">
                   <Link
                     to={`/admin/products/${item.id}`}
-                    className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg transition"
+                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition"
                   >
                     Редактировать
                   </Link>

@@ -26,17 +26,17 @@ export default function Checkout() {
   return (
     <section className="max-w-4xl mx-auto py-10 px-3 sm:px-6">
       <header className="mb-8">
-        <h1 className="text-3xl sm:text-4xl font-semibold text-slate-900 tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-semibold text-slate-100 tracking-tight">
           Подтверждение заказа
         </h1>
-        <p className="text-slate-500 mt-3 text-sm sm:text-base">
-          Проверьте состав заказа с компьютерными девайсами перед финальным подтверждением.
+        <p className="text-slate-400 mt-3 text-sm sm:text-base">
+          Проверьте состав заказа перед финальным подтверждением.
         </p>
       </header>
 
       {items.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
-          <p className="text-slate-600">
+        <div className="rounded-xl border border-dashed border-slate-700 bg-slate-900 p-8 text-center">
+          <p className="text-slate-300">
             Ваша корзина пуста. Добавьте устройства, чтобы перейти к оформлению.
           </p>
         </div>
@@ -46,16 +46,16 @@ export default function Checkout() {
             {items.map((item) => (
               <article
                 key={item.product.id}
-                className="flex justify-between items-start bg-white border border-slate-200 rounded-xl p-4 shadow-sm"
+                className="flex justify-between items-start bg-slate-900 border border-slate-700 rounded-xl p-4 shadow-sm"
               >
                 <div>
-                  <h2 className="text-lg font-semibold text-slate-900">
+                  <h2 className="text-lg font-semibold text-slate-100">
                     {item.product.name}
                   </h2>
-                  <p className="text-sm text-slate-500 mt-1">
+                  <p className="text-sm text-slate-400 mt-1">
                     Количество: <span className="font-medium">{item.quantity}</span>
                   </p>
-                  <p className="text-sm text-slate-500 mt-1">
+                  <p className="text-sm text-slate-400 mt-1">
                     Цена: <span className="font-medium">{item.product.price} ₽</span>
                   </p>
                 </div>
@@ -64,7 +64,7 @@ export default function Checkout() {
                   <p className="text-xs uppercase text-slate-400 tracking-[0.2em]">
                     Итого
                   </p>
-                  <p className="text-xl font-semibold text-emerald-600 mt-1">
+                  <p className="text-xl font-semibold text-emerald-400 mt-1">
                     {item.product.price * item.quantity} ₽
                   </p>
                 </div>
@@ -74,7 +74,7 @@ export default function Checkout() {
 
           <div className="bg-slate-900 text-white rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-slate-300">
+              <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
                 Общая сумма заказа
               </p>
               <p className="text-3xl font-bold mt-1">{total} ₽</p>
@@ -88,6 +88,6 @@ export default function Checkout() {
           </div>
         </div>
       )}
-    </div>
+    </section>
   );
 }

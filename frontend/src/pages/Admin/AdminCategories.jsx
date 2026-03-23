@@ -12,6 +12,7 @@ export default function AdminCategories() {
   }
 
   async function createCategory() {
+    if (!name || !slug) return;
     await api.post('/categories', { name, slug });
     setName('');
     setSlug('');
@@ -29,7 +30,7 @@ export default function AdminCategories() {
 
   return (
     <section className="max-w-6xl mx-auto py-14 px-4">
-      <h1 className="text-4xl font-bold text-slate-900 mb-10 tracking-tight">
+      <h1 className="text-4xl font-bold text-slate-100 mb-10 tracking-tight">
         Категории компьютерных девайсов
       </h1>
 
@@ -41,17 +42,19 @@ export default function AdminCategories() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <input
-            className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none transition"
+            className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 
+                       focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none transition"
             placeholder="Название категории"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
 
           <input
-            className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none transition"
+            className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 
+                       focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none transition"
             placeholder="Slug категории"
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
+            value={slug}
+            onChange={(e) => setSlug(e.target.value)}
           />
 
           <button
@@ -63,9 +66,10 @@ export default function AdminCategories() {
         </div>
       </div>
 
-      <table className="w-full bg-white shadow-md rounded-lg">
+      {/* Таблица категорий */}
+      <table className="w-full bg-slate-900 text-slate-100 shadow-md rounded-lg border border-slate-800">
         <thead>
-          <tr className="bg-gray-200 text-left">
+          <tr className="bg-slate-800 text-left">
             <th className="p-3">ID</th>
             <th className="p-3">Название</th>
             <th className="p-3">Slug</th>
@@ -73,25 +77,24 @@ export default function AdminCategories() {
           </tr>
         </thead>
 
-          <tbody>
-            {categories.map((cat) => (
-              <tr key={cat.id} className="border-t border-slate-200">
-                <td className="p-4">{cat.id}</td>
-                <td className="p-4">{cat.name}</td>
-                <td className="p-4">{cat.slug}</td>
-                <td className="p-4">
-                  <button
-                    onClick={() => removeCategory(cat.id)}
-                    className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition"
-                  >
-                    Удалить
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+        <tbody>
+          {items.map((cat) => (
+            <tr key={cat.id} className="border-t border-slate-700">
+              <td className="p-4">{cat.id}</td>
+              <td className="p-4">{cat.name}</td>
+              <td className="p-4">{cat.slug}</td>
+              <td className="p-4">
+                <button
+                  onClick={() => deleteCategory(cat.id)}
+                  className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition"
+                >
+                  Удалить
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </section>
   );
 }

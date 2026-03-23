@@ -19,7 +19,7 @@ export default function Register() {
 
   return (
     <section className="max-w-md mx-auto py-16 px-6">
-      <h1 className="text-4xl font-bold text-slate-900 mb-8 tracking-tight">
+      <h1 className="text-4xl font-bold text-slate-100 mb-8 tracking-tight">
         Регистрация в TechGear Store
       </h1>
 
@@ -32,8 +32,8 @@ export default function Register() {
           <input
             className="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none transition"
             placeholder="Введите имя"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
 
@@ -58,12 +58,10 @@ export default function Register() {
           />
         </div>
 
-        <button
-          className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-lg font-semibold transition"
-        >
+        <button className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-lg font-semibold transition">
           Создать аккаунт
         </button>
       </form>
-    </div>
+    </section>
   );
 }
