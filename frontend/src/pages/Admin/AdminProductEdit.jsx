@@ -41,36 +41,98 @@ export default function AdminProductEdit() {
   }
 
   return (
-    <div className="max-w-xl">
-      <h1 className="text-3xl font-bold text-amber-800 mb-6">
-        {isNew ? 'Создать товар' : 'Редактировать товар'}
+    <section className="max-w-4xl mx-auto py-14 px-4">
+      <h1 className="text-4xl font-bold text-slate-900 mb-10 tracking-tight">
+        {isNew ? 'Добавить устройство' : 'Редактировать устройство'}
       </h1>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-slate-950 text-slate-100 p-10 rounded-2xl shadow-xl border border-slate-800 flex flex-col gap-6"
+      >
+        <div className="flex flex-col gap-2">
+          <label className="font-medium">Название устройства</label>
+          <input
+            className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 focus:border-blue-500 outline-none transition"
+            name="name"
+            placeholder="Например: RTX 4070 Ti"
+            value={form.name}
+            onChange={handleChange}
+          />
+        </div>
 
-        <input className="input" name="name" placeholder="Название"
-          value={form.name} onChange={handleChange} />
+        <div className="flex flex-col gap-2">
+          <label className="font-medium">Slug</label>
+          <input
+            className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 focus:border-blue-500 outline-none transition"
+            name="slug"
+            placeholder="rtx-4070-ti"
+            value={form.slug}
+            onChange={handleChange}
+          />
+        </div>
 
-        <input className="input" name="slug" placeholder="Slug"
-          value={form.slug} onChange={handleChange} />
+        <div className="flex flex-col gap-2">
+          <label className="font-medium">Описание</label>
+          <textarea
+            className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 h-32 resize-none focus:border-blue-500 outline-none transition"
+            name="description"
+            placeholder="Описание устройства"
+            value={form.description}
+            onChange={handleChange}
+          />
+        </div>
 
-        <textarea className="input" name="description" placeholder="Описание"
-          value={form.description} onChange={handleChange} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex flex-col gap-2">
+            <label className="font-medium">Цена</label>
+            <input
+              className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 focus:border-blue-500 outline-none transition"
+              name="price"
+              placeholder="Цена в ₽"
+              value={form.price}
+              onChange={handleChange}
+            />
+          </div>
 
-        <input className="input" name="price" placeholder="Цена"
-          value={form.price} onChange={handleChange} />
+          <div className="flex flex-col gap-2">
+            <label className="font-medium">Остаток</label>
+            <input
+              className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 focus:border-blue-500 outline-none transition"
+              name="stock"
+              placeholder="Количество на складе"
+              value={form.stock}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
 
-        <input className="input" name="stock" placeholder="Остаток"
-          value={form.stock} onChange={handleChange} />
+        <div className="flex flex-col gap-2">
+          <label className="font-medium">URL изображения</label>
+          <input
+            className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 focus:border-blue-500 outline-none transition"
+            name="imageUrl"
+            placeholder="https://example.com/device.jpg"
+            value={form.imageUrl}
+            onChange={handleChange}
+          />
+        </div>
 
-        <input className="input" name="imageUrl" placeholder="URL изображения"
-          value={form.imageUrl} onChange={handleChange} />
+        <div className="flex flex-col gap-2">
+          <label className="font-medium">ID категории</label>
+          <input
+            className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 focus:border-blue-500 outline-none transition"
+            name="categoryId"
+            placeholder="Например: 3"
+            value={form.categoryId}
+            onChange={handleChange}
+          />
+        </div>
 
-        <input className="input" name="categoryId" placeholder="ID категории"
-          value={form.categoryId} onChange={handleChange} />
-
-        <button className="btn btn-primary w-full">
-          {isNew ? 'Создать' : 'Сохранить'}
+        <button
+          className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-lg font-semibold transition"
+        >
+          {isNew ? 'Создать устройство' : 'Сохранить изменения'}
         </button>
 
       </form>

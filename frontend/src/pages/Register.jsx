@@ -18,33 +18,51 @@ export default function Register() {
   }
 
   return (
-    <div className="container py-10 max-w-md">
-      <h1 className="text-3xl font-bold mb-6 text-amber-800">Регистрация</h1>
+    <section className="max-w-md mx-auto py-16 px-6">
+      <h1 className="text-4xl font-bold text-slate-900 mb-8 tracking-tight">
+        Регистрация в TechGear Store
+      </h1>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <input
-          className="input"
-          placeholder="Имя"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-6 bg-slate-900 text-slate-100 p-8 rounded-2xl shadow-xl border border-slate-700"
+      >
+        <div className="flex flex-col gap-2">
+          <label className="font-medium">Ваше имя</label>
+          <input
+            className="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none transition"
+            placeholder="Введите имя"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+          />
+        </div>
 
-        <input
-          className="input"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <div className="flex flex-col gap-2">
+          <label className="font-medium">Email</label>
+          <input
+            className="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none transition"
+            placeholder="Введите email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
 
-        <input
-          className="input"
-          placeholder="Пароль"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <div className="flex flex-col gap-2">
+          <label className="font-medium">Пароль</label>
+          <input
+            className="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none transition"
+            placeholder="Введите пароль"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
 
-        <button className="btn btn-primary w-full">Создать аккаунт</button>
+        <button
+          className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-lg font-semibold transition"
+        >
+          Создать аккаунт
+        </button>
       </form>
     </div>
   );

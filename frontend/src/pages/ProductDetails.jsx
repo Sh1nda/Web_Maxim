@@ -12,30 +12,42 @@ export default function ProductDetails() {
     getProduct(id).then((res) => setProduct(res.data.data));
   }, [id]);
 
-  if (!product) return <p className="p-6">Загрузка...</p>;
+  if (!itemData) {
+    return (
+      <div className="p-10 text-slate-600 text-lg">
+        Загрузка информации об устройстве...
+      </div>
+    );
+  }
 
   return (
-    <div className="container py-10 max-w-4xl">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <section className="max-w-6xl mx-auto py-14 px-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
 
         <img
-          src={product.imageUrl}
-          alt={product.name}
-          className="rounded-lg shadow-md w-full h-80 object-cover"
+          src={itemData.image}
+          alt={itemData.title}
+          className="rounded-2xl shadow-xl w-full h-96 object-cover border border-slate-300"
         />
 
-        <div>
-          <h1 className="text-3xl font-bold text-amber-800">{product.name}</h1>
+        <div className="flex flex-col justify-between">
+          <div>
+            <h1 className="text-4xl font-bold text-slate-900 tracking-tight">
+              {itemData.title}
+            </h1>
 
-          <p className="text-gray-700 mt-4">{product.description}</p>
+            <p className="text-slate-600 mt-6 leading-relaxed text-lg">
+              {itemData.description}
+            </p>
 
-          <p className="text-3xl font-bold text-amber-700 mt-6">
-            {product.price} ₽
-          </p>
+            <p className="text-4xl font-extrabold text-emerald-600 mt-10">
+              {itemData.price} ₽
+            </p>
+          </div>
 
           <button
-            onClick={() => addToCart(product)}
-            className="btn btn-primary mt-6"
+            onClick={() => addToCart(itemData)}
+            className="mt-12 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-lg font-semibold transition"
           >
             Добавить в корзину
           </button>
