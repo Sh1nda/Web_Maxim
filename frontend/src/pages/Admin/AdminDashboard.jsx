@@ -1,11 +1,18 @@
 export default function AdminDashboard() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold text-amber-800 mb-6">Главная</h1>
+    <section className="max-w-6xl mx-auto py-14 px-4">
+      <h1 className="text-4xl font-bold text-slate-900 mb-8 tracking-tight">
+        Панель управления TechGear Store
+      </h1>
 
-      <p className="text-gray-700">
-        Добро пожаловать в административную панель. Выберите раздел слева.
-      </p>
-    </div>
+      <div className="bg-slate-950 text-slate-100 p-10 rounded-2xl shadow-xl border border-slate-800">
+        <p className="text-lg leading-relaxed text-slate-300">
+          Добро пожаловать в административный раздел TechGear Store.
+          Здесь вы можете управлять каталогом компьютерных комплектующих,
+          категориями, заказами и пользователями.  
+          Используйте меню слева, чтобы перейти к нужному разделу.
+        </p>
+      </div>
+    </section>
   );
 }
